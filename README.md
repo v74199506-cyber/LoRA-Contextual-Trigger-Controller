@@ -86,10 +86,42 @@ currently available together:
 - **Adult-content neutral:** trigger metadata is handled as technical text; the
   extension neither generates nor uploads images.
 
-## Status
+## Current MVP
 
-Project definition and MVP planning. Implementation has not started.
+An installable local MVP is now implemented. It provides:
+
+- a frontend side panel that detects core `LoraLoader` nodes, rgthree Power LoRA
+  Loader widgets, and LoRA Manager loader data;
+- bounded SafeTensors header reading and SHA-256 identity without loading tensors;
+- local, atomic profile persistence under `data/profiles/`;
+- manual semantic group and option editing, including exclusive radio groups;
+- explicit positive-prompt target selection;
+- conservative managed-text replacement with workflow-owned state and exact undo;
+- conservative, reviewable grouping and broad LoRA type classification;
+- active-LoRA status indicators and explicitly confirmed local categories;
+- opt-in Civitai lookup that sends only the selected file's SHA-256 hash.
+
+Tags imported from metadata or Civitai are deliberately shown as unselected
+suggestions for human review. More advanced extraction from free-form publisher
+documentation remains a later metadata-assistance phase.
+
+## Install for local testing
+
+Place this repository directory inside `ComfyUI/custom_nodes/` and restart
+ComfyUI. No Python package installation is required. After refreshing the
+browser, use the **LoRA Triggers** button at the lower-right corner.
+
+Profiles are private local files and are ignored by Git. Civitai is never queried
+unless the user confirms a lookup in the panel.
+
+## Test
+
+```powershell
+python -m unittest discover -s tests -p 'test_*.py'
+node --test tests/*.test.js
+```
+
+No workflow node is added: this is intentionally a frontend-first extension.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md), [DECISIONS.md](DECISIONS.md), and
 [ROADMAP.md](ROADMAP.md).
-
